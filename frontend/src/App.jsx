@@ -18,7 +18,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Order from "./components/Order/Order";
 import OrderDetail from "./components/Order/OrderDetail";
-
+import Verify from "./components/Verify";
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -45,6 +45,7 @@ const App = () => {
           <Route path="/Register" element={<Register />} />
           <Route path="/Order" element={<Order />} />
           <Route path="/OrderDetail" element={<OrderDetail />} />
+          <Route path="/Verify" element={<Verify />} />
 
          
         </Routes>

@@ -25,11 +25,11 @@ const Footer = () => {
             <h4 className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.15em] text-stone-950 mb-1">
               Shop
             </h4>
-            <Link to="/new-arrivals" className="text-xs md:text-sm text-stone-500 hover:text-stone-950 font-light tracking-wide transition-colors duration-200">
-              New Arrivals
+            <Link to="/login" className="text-xs md:text-sm text-stone-500 hover:text-stone-950 font-light tracking-wide transition-colors duration-200">
+             Login
             </Link>
-            <Link to="/collections" className="text-xs md:text-sm text-stone-500 hover:text-stone-950 font-light tracking-wide transition-colors duration-200">
-              Collections
+            <Link to="/register" className="text-xs md:text-sm text-stone-500 hover:text-stone-950 font-light tracking-wide transition-colors duration-200">
+             Register
             </Link>
             <Link to="/accessories" className="text-xs md:text-sm text-stone-500 hover:text-stone-950 font-light tracking-wide transition-colors duration-200">
               Accessories

@@ -25,12 +25,12 @@ const Navbar = ({ setSidebarOpen }) => {
               New Arrivals
             </Link>
 
-            <Link to="/ProductDetail">
-              Collections
+            <Link to="/login">
+              Login
             </Link>
 
-            <Link to="/ShopingCart">
-              Shopping Cart
+            <Link to="/Register">
+               Register
             </Link>
 
           </div>

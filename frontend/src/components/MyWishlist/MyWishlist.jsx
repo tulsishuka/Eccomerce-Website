@@ -8,14 +8,15 @@ const MyWishlist = () => {
       id: 1,
       name: 'Ethereal Silk Blouse',
       price: 420.00,
-      image: 'https://images.unsplash.com/photo-1548624149-f7b1509ef224?auto=format&fit=crop&w=400&q=80',
+      image: '/model.jpg',
     },
     {
       id: 2,
       name: 'Standard Wool Trouser',
       price: 580.00,
-      image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=400&q=80',
+      image: 'ladki.jpg',
     },
+    
     {
       id: 3,
       name: 'Sculptural Gold Hoops',
@@ -34,12 +35,7 @@ const MyWishlist = () => {
       price: 820.00,
       image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80',
     },
-    {
-      id: 6,
-      name: 'Pure Cashmere Layer',
-      price: 650.00,
-      image: 'https://images.unsplash.com/photo-1574164904299-3a102b110380?auto=format&fit=crop&w=400&q=80',
-    },
+   
   ]);
 
   const recommendations = [
@@ -60,7 +56,6 @@ const MyWishlist = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-sans text-gray-900">
       
-      {/* Top Bar: Title & Action Buttons */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-100 pb-6 mb-10 gap-4">
         <div>
           <h1 className="text-3xl font-serif tracking-wide">My Wishlist</h1>
@@ -77,12 +72,10 @@ const MyWishlist = () => {
         </div>
       </div>
 
-      {/* Main Wishlist Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
         {wishlistItems.map((item) => (
           <div key={item.id} className="group flex flex-col justify-between h-full">
             <div>
-              {/* Product Image Panel */}
               <div className="aspect-[3/4] w-full bg-gray-50 overflow-hidden relative mb-3">
                 <img 
                   src={item.image} 

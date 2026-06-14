@@ -26,11 +26,18 @@ const productSchema = new Schema(
       default: null,
     },
 
+   
     category: {
-      type: String,
-      required: [true, "Product category must be provided"],
-      enum: ["sepatu", "Flower", "Shoes", "Clothing"],
-    },
+  type: String,
+  required: true,
+  enum: [
+    "men",
+    "women",
+    "shoes",
+    "clothing",
+    "accessories"
+  ],
+},
 
     stock: {
       type: Number,

@@ -5,6 +5,6 @@ export interface IProduct extends Document {
   price: number;
   description: string;
   image?: string;
-  category: "sepatu" | "baju" | "celana";
+  category: "men" | "women" ;
   stock: number;
 }

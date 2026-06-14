@@ -3,7 +3,8 @@ import crypto from "crypto";
 import { AppError } from "../utils/AppError";
 import { User } from "../models/userModel";
 
-// Register user
+
+
 export const registerUser = async (data: any) => {
   const existing = await User.findOne({ email: data.email });
   if (existing) throw new AppError("User already exists", 400);

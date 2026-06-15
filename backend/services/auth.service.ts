@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { AppError } from "../utils/AppError";
 import { User } from "../models/userModel";
+import { sendEmail } from "../utils/sendEmail";
 
 
 
@@ -26,28 +27,91 @@ export const registerUser = async (data: any) => {
   return user;
 };
 
-// Verify OTP
-export const verifyOtp = async (email: string, otp: string) => {
-  const user = await User.findOne({ email });
-  if (!user) throw new AppError("User not found", 404);
 
-  if (user.otp !== otp) throw new AppError("Invalid OTP", 400);
-  if (user.otpExpires! < new Date()) throw new AppError("OTP expired", 400);
+
+export const verifyOtp = async (
+  email: string,
+  otp: string
+) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  console.log("============== OTP DEBUG ==============");
+  console.log("Email:", email);
+  console.log("DB OTP:", user.otp);
+  console.log("Entered OTP:", otp);
+  console.log("Expires:", user.otpExpires);
+  console.log("=======================================");
+
+  if (String(user.otp) !== String(otp)) {
+    throw new AppError("Invalid OTP", 400);
+  }
+
+  if (
+    user.otpExpires &&
+    user.otpExpires < new Date()
+  ) {
+    throw new AppError("OTP expired", 400);
+  }
 
   user.isVerified = true;
   user.otp = undefined;
   user.otpExpires = undefined;
 
   await user.save();
+
+  return user;
 };
 
-// Login
-export const loginUser = async (email: string, password: string) => {
-  const user = await User.findOne({ email });
-  if (!user || !user.isVerified) throw new AppError("Invalid credentials", 401);
 
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) throw new AppError("Invalid credentials", 401);
+
+
+export const loginUser = async (
+  email: string,
+  password: string
+) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  const match = await bcrypt.compare(
+    password,
+    user.password
+  );
+
+  if (!match) {
+    throw new AppError("Invalid password", 401);
+  }
+
+  // User not verified
+  if (!user.isVerified) {
+    const otp = crypto
+      .randomInt(100000, 1000000)
+      .toString();
+
+    user.otp = otp;
+    user.otpExpires = new Date(
+      Date.now() + 10 * 60 * 1000
+    );
+
+    await user.save();
+
+    await sendEmail(
+      user.email,
+      "Verify your account",
+      `Your OTP for account verification is: ${otp}`
+    );
+
+    return {
+      requiresVerification: true,
+      email: user.email,
+    };
+  }
 
   return user;
 };

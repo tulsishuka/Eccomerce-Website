@@ -36,26 +36,47 @@ export const verify = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
-/**
- * @desc Login user
- */
-export const login = asyncHandler(async (req: Request, res: Response) => {
-  const { email, password } = req.body;
 
-  const user = await authService.loginUser(email, password);
 
-  // 🔥 IMPORTANT: include role inside token
-  const token = generateToken(
-    user._id.toString(),
-    user.role
-  );
+export const login = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { email, password } = req.body;
 
-  res.status(200).json({
-    success: true,
-    token,
-    message: "Login successful",
-  });
-});
+    const result = await authService.loginUser(
+      email,
+      password
+    );
+
+    // User not verified
+    if (
+      typeof result === "object" &&
+      "requiresVerification" in result
+    ) {
+      return res.status(200).json({
+        success: false,
+        requiresVerification: true,
+        email: result.email,
+        message: "Please verify your email",
+      });
+    }
+
+    const token = generateToken(
+      result._id.toString(),
+      result.role
+    );
+
+    return res.status(200).json({
+      success: true,
+      token,
+      user: {
+        name: result.name,
+        email: result.email,
+        role: result.role,
+      },
+      message: "Login successful",
+    });
+  }
+);
 
 /**
  * @desc Reset password using old password

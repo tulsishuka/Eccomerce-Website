@@ -35,7 +35,10 @@ const productSchema = new Schema(
     "women",
     "shoes",
     "clothing",
-    "accessories"
+    "accessories",
+    "BeautyProducts",
+    "Electronics",
+    "HomeDecor",
   ],
 },
 

@@ -4,15 +4,18 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import ShopUniverseSection from "../../components/ShopUniverseSection/ShopUniverseSection";
 import TestimonialsSection from "../../components/TestimonialsSection/TestimonialsSection";
 import WinterArchiveSection from "../../components/WinterArchiveSection/WinterArchiveSection";
+import PromotionBanner from "../../components/PromotionBanner";
 
 const Home = () => {
   return (
     <>
       <Hero />
+       <ShopUniverseSection />
       <ProductCard />
-      <ShopUniverseSection />
+     
       <WinterArchiveSection/>
       <TestimonialsSection />
+      <PromotionBanner/>
     </>
   );
 };

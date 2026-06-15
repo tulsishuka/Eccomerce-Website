@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ChevronDown } from "lucide-react";
@@ -6,32 +7,32 @@ import { useSearchParams } from "react-router-dom";
 const CategoryCard = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("");
 
-  const [searchParams] = useSearchParams();
-  const search = searchParams.get("name");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const search = searchParams.get("name") || "";
+  const category = searchParams.get("category") || "";
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
 
-        let url = "http://localhost:3000/api/v1/product?";
-        const params = [];
+        const params = new URLSearchParams();
 
         if (search) {
-          params.push(`name=${search}`);
+          params.append("name", search);
         }
 
-        if (selectedCategory) {
-          params.push(`category=${selectedCategory}`);
+        if (category) {
+          params.append("category", category);
         }
 
-        url += params.join("&");
+        const url = `http://localhost:3000/api/v1/product?${params.toString()}`;
 
         const res = await axios.get(url);
 
-        setProducts(res.data.data);
+        setProducts(res.data.data || []);
       } catch (error) {
         console.log(error);
       } finally {
@@ -40,33 +41,55 @@ const CategoryCard = () => {
     };
 
     fetchProducts();
-  }, [search, selectedCategory]);
+  }, [search, category]);
+
+  const handleCategoryChange = (newCategory) => {
+    const params = new URLSearchParams();
+
+    // If user clicks All Products, clear everything
+    if (!newCategory) {
+      setSearchParams({});
+      return;
+    }
+
+    params.set("category", newCategory);
+    setSearchParams(params);
+  };
 
   return (
-    <section className="w-full bg-white text-stone-900 px-4 py-24 md:px-12 lg:px-20">
+    <section className="min-h-screen bg-[#faf9f7] px-4 py-24 md:px-10 lg:px-16">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="flex justify-between items-center border-b pb-5 mb-10">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 border-b border-gray-200 pb-6 mb-10">
+
           <div>
-            <span className="text-xs tracking-[0.25em] uppercase text-amber-800 font-semibold">
-              Premium Collection
+            <span className="uppercase tracking-[0.25em] text-xs text-amber-700 font-semibold">
+              Aura Luxe
             </span>
 
-            <h1 className="text-3xl font-serif">
-              Fashion Collection
+            <h1 className="text-4xl font-serif mt-2">
+              {search
+                ? `Search: "${search}"`
+                : category
+                ? `${category.charAt(0).toUpperCase() + category.slice(1)} Collection`
+                : "All Products"}
             </h1>
+
+            <p className="text-gray-500 mt-2 text-sm">
+              Discover premium fashion curated for modern lifestyles.
+            </p>
           </div>
 
-          <div className="flex items-center gap-4 text-sm">
-            <span>
-              Showing {products.length} Products
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-gray-600">
+              {products.length} Products
             </span>
 
-            <div className="flex items-center gap-1 border px-3 py-2">
-              <span>Featured</span>
-              <ChevronDown size={14} />
-            </div>
+            <button className="flex items-center gap-2 border border-gray-300 px-4 py-2 rounded-full text-sm hover:bg-gray-100 transition">
+              Featured
+              <ChevronDown size={16} />
+            </button>
           </div>
         </div>
 
@@ -74,45 +97,46 @@ const CategoryCard = () => {
 
           {/* Sidebar */}
           <aside className="lg:col-span-3">
-            <h3 className="text-xs font-semibold uppercase mb-4">
-              Category
-            </h3>
+            <div className="sticky top-28">
+              <h3 className="uppercase text-xs font-semibold tracking-widest mb-5">
+                Categories
+              </h3>
 
-            <div className="space-y-3">
+              <div className="space-y-3">
 
-              <button
-                onClick={() => setSelectedCategory("")}
-                className={`block ${
-                  selectedCategory === ""
-                    ? "font-semibold text-black"
-                    : "text-gray-500"
-                }`}
-              >
-                All Products
-              </button>
+                <button
+                  onClick={() => handleCategoryChange("")}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition ${
+                    !category
+                      ? "bg-black text-white"
+                      : "bg-white hover:bg-gray-100"
+                  }`}
+                >
+                  All Products
+                </button>
 
-              <button
-                onClick={() => setSelectedCategory("men")}
-                className={`block ${
-                  selectedCategory === "men"
-                    ? "font-semibold text-black"
-                    : "text-gray-500"
-                }`}
-              >
-                Men
-              </button>
+                <button
+                  onClick={() => handleCategoryChange("men")}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition ${
+                    category === "men"
+                      ? "bg-black text-white"
+                      : "bg-white hover:bg-gray-100"
+                  }`}
+                >
+                  Men
+                </button>
 
-              <button
-                onClick={() => setSelectedCategory("women")}
-                className={`block ${
-                  selectedCategory === "women"
-                    ? "font-semibold text-black"
-                    : "text-gray-500"
-                }`}
-              >
-                Women
-              </button>
-
+                <button
+                  onClick={() => handleCategoryChange("women")}
+                  className={`w-full text-left px-4 py-3 rounded-lg transition ${
+                    category === "women"
+                      ? "bg-black text-white"
+                      : "bg-white hover:bg-gray-100"
+                  }`}
+                >
+                  Women
+                </button>
+              </div>
             </div>
           </aside>
 
@@ -120,48 +144,58 @@ const CategoryCard = () => {
           <main className="lg:col-span-9">
 
             {loading ? (
-              <div className="text-center py-20 text-lg">
-                Loading Products...
+              <div className="flex justify-center items-center h-64">
+                <div className="h-12 w-12 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>
               </div>
             ) : products.length === 0 ? (
-              <div className="text-center py-20 text-lg">
-                No Products Found
+              <div className="bg-white rounded-xl p-12 text-center shadow-sm">
+                <h3 className="text-2xl font-medium mb-2">
+                  No Products Found
+                </h3>
+
+                <p className="text-gray-500">
+                  Try searching for something else.
+                </p>
               </div>
             ) : (
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 {products.map((product) => (
                   <div
                     key={product._id}
-                    className="group cursor-pointer"
+                    className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition duration-300"
                   >
-                    <div className="aspect-[4/5] overflow-hidden bg-gray-100 rounded-lg">
+                    <div className="aspect-[4/5] overflow-hidden">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
                       />
                     </div>
 
-                    <h3 className="mt-4 text-sm font-medium">
-                      {product.name}
-                    </h3>
+                    <div className="p-5">
+                      <p className="text-xs uppercase tracking-wider text-gray-400 mb-2">
+                        {product.category}
+                      </p>
 
-                    <p className="text-gray-500 text-sm mt-1">
-                      ₹{product.price}
-                    </p>
+                      <h3 className="font-medium text-lg">
+                        {product.name}
+                      </h3>
 
-                    <p className="text-xs text-gray-400 mt-1 capitalize">
-                      {product.category}
-                    </p>
+                      <p className="mt-2 text-xl font-semibold">
+                        ₹{product.price}
+                      </p>
+
+                      <button className="mt-4 w-full py-2 rounded-lg border border-black hover:bg-black hover:text-white transition">
+                        View Product
+                      </button>
+                    </div>
                   </div>
                 ))}
 
               </div>
             )}
-
           </main>
-
         </div>
       </div>
     </section>

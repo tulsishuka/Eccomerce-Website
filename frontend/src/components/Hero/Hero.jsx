@@ -1,50 +1,30 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 const Hero = () => {
   return (
-    <>
-    <section className="relative w-full h-screen overflow-hidden ">
+    <div className="relative w-full h-[160px] sm:h-[220px] md:h-[280px] lg:h-[350px] overflow-hidden mt-20 rounded-lg">
+      {/* Background Image */}
       <img
-        src="/women2.jpg"
+        src="/home.webp"
         alt="Fashion Collection"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="w-full h-full object-cover"
       />
 
-   
-      <div className="absolute inset-0 bg-black/30"></div>
+      {/* Content - Hidden on mobile */}
+      <div className="absolute inset-0 hidden sm:flex items-center justify-end">
+        <div className="max-w-[650px] px-8 md:px-12 lg:px-20 text-right">
+          <h1 className="text-white font-bold leading-tight text-2xl md:text-3xl lg:text-5xl">
+            Smart Shopping
+            <br />
+            Trusted by Millions
+          </h1>
 
-   
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4">
-        <span className="text-xs md:text-sm tracking-[0.4em] uppercase text-amber-200 mb-4">
-          Summer '24 Collection
-        </span>
-<h1 className="text-3xl md:text-5xl lg:text-5xl font-serif font-[600] text-white/80 max-w-5xl leading-tight mb-8">
-  The Art of Pure Form
-</h1>
-
-        <div className="flex gap-4 flex-wrap justify-center">
-            <Link to="/CategoryCard">
-          <button className="px-8 py-3 border border-white text-white hover:bg-white/10 transition">
-            Shop Collection
-          </button>
-</Link>
-          <button className="px-8 py-3 border border-white text-white hover:bg-white/10 transition">
-            View Lookbook
+          <button className="mt-4 bg-white text-purple-900 px-6 py-3 md:px-8 rounded-md text-sm md:text-base font-semibold hover:bg-gray-100 transition">
+            Shop Now
           </button>
         </div>
       </div>
-
-      {/* Bottom Left Text */}
-      <div className="absolute bottom-8 left-8 z-10">
-        <p className="text-xs text-gray-300">
-          Captured in the minimalist villas of Puglia, Italy.
-        </p>
-      </div>
-    </section>
-  
-    </>
+    </div>
   );
 };
 

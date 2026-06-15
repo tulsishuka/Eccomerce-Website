@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,161 +22,154 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await axios.post(
-        "http://localhost:3000/api/v1/auth/login",
-        formData
+  try {
+    const res = await axios.post(
+      "http://localhost:3000/api/v1/auth/login",
+      formData
+    );
+
+    // Not verified
+    if (res.data.requiresVerification) {
+      toast.error(
+        "Please verify your email. New OTP sent."
       );
 
-      // Save token
-      localStorage.setItem("token", res.data.token);
+      navigate("/verify", {
+        state: {
+          email: res.data.email,
+        },
+      });
 
-      // Save user data
-      localStorage.setItem(
-        "user",
-        JSON.stringify(res.data.user)
-      );
-
-      alert("Login Successful");
-
-      navigate("/account");
-    } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      return;
     }
-  };
+
+    localStorage.setItem(
+      "token",
+      res.data.token
+    );
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify(res.data.user)
+    );
+
+    toast.success("Login Successful");
+
+    navigate("/");
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message ||
+        "Login failed"
+    );
+  }
+};
+
+
+
 
   return (
-    <div className="min-h-screen w-full bg-white font-sans antialiased text-[#1A1A1A]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
 
-        {/* Left Side */}
-        <div className="relative h-[250px] sm:h-[350px] lg:h-auto overflow-hidden">
-          <img
-            src="/ladki.jpg"
-            alt="Fashion Collection"
-            className="absolute inset-0 w-full h-full object-cover"
+    <div className="flex min-h-screen items-center justify-center bg-[#FDF4E3] p-4">
+  <div className="w-full max-w-[480px] overflow-hidden rounded-[28px] bg-white shadow-lg">
+
+    {/* Banner */}
+    <div className="w-full">
+      <img
+        src="/register.webp"
+        alt="Login Banner"
+        className="w-full object-cover"
+      />
+    </div>
+
+    {/* Form */}
+    <div className="p-6 sm:p-8">
+      <h2 className="text-2xl font-bold text-[#2d3748] mb-2">
+        Welcome Back
+      </h2>
+
+      <p className="text-gray-500 text-sm mb-6">
+        Sign in to access your account
+      </p>
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+
+        {/* Email */}
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-2">
+            Email Address
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:border-[#9c27b0] transition"
           />
-          <div className="absolute inset-0 bg-black/10"></div>
         </div>
 
-        {/* Right Side */}
-        <div className="flex flex-col justify-between bg-white px-5 py-8 sm:px-10 sm:py-12 lg:px-20 lg:py-16">
+        {/* Password */}
+        <div>
+          <div className="flex justify-between items-center mb-2">
+            <label className="block text-sm font-medium text-gray-600">
+              Password
+            </label>
 
-          <div className="w-full max-w-md mx-auto my-auto">
-            <header className="mb-8 sm:mb-10">
-              <h1 className="text-2xl sm:text-3xl font-serif tracking-tight text-[#111111] mb-2">
-                Welcome Back
-              </h1>
-
-              <p className="text-sm text-gray-500">
-                Please enter your details to access your account.
-              </p>
-            </header>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-
-              {/* Email */}
-              <div className="flex flex-col space-y-2">
-                <label className="text-[10px] tracking-widest uppercase font-medium text-gray-400">
-                  Email Address
-                </label>
-
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="name@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-transparent border-b border-gray-200 py-3 text-sm focus:outline-none focus:border-black placeholder-gray-300"
-                />
-              </div>
-
-              {/* Password */}
-              <div className="flex flex-col space-y-2">
-                <div className="flex justify-between items-center">
-
-                  <label className="text-[10px] tracking-widest uppercase font-medium text-gray-400">
-                    Password
-                  </label>
-
-                  <Link
-                    to="/forgot"
-                    className="text-[10px] tracking-widest uppercase text-gray-400 hover:text-black"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
-
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="••••••••"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    className="w-full bg-transparent border-b border-gray-200 py-3 pr-16 text-sm focus:outline-none focus:border-black placeholder-gray-300"
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 text-xs uppercase tracking-wider text-gray-500 hover:text-black"
-                  >
-                    {showPassword ? "Hide" : "Show"}
-                  </button>
-                </div>
-              </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 sm:py-4 text-xs tracking-[0.2em] uppercase font-medium hover:bg-zinc-800 transition"
-              >
-                Sign In
-              </button>
-            </form>
-
-            {/* Social Login */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
-              <button
-                type="button"
-                className="flex items-center justify-center gap-2 border border-gray-200 py-3 text-[10px] tracking-widest uppercase"
-              >
-                Google
-              </button>
-
-              <button
-                type="button"
-                className="flex items-center justify-center gap-2 border border-gray-200 py-3 text-[10px] tracking-widest uppercase"
-              >
-                Apple
-              </button>
-            </div>
-
-            <p className="text-center text-xs text-gray-500 mt-8">
-              Don't have an account?{" "}
-              <Link
-                to="/signup"
-                className="font-semibold text-black"
-              >
-                Create Account
-              </Link>
-            </p>
+            <Link
+              to="/forgot"
+              className="text-sm text-[#9c27b0] hover:underline"
+            >
+              Forgot Password?
+            </Link>
           </div>
 
-          {/* Footer */}
-          <footer className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-6 text-[9px] tracking-widest uppercase text-gray-400 mt-8">
-            <a href="/">Privacy Policy</a>
-            <a href="/">Terms of Service</a>
-            <a href="/">Cookies</a>
-          </footer>
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 pr-16 focus:outline-none focus:border-[#9c27b0] transition"
+            />
+
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-[#9c27b0] font-medium"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
         </div>
-      </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full bg-[#9c27b0] hover:bg-[#7b1fa2] text-white font-medium py-3 rounded-xl text-lg transition duration-200 shadow-md"
+        >
+          Sign In
+        </button>
+      </form>
+
+      {/* Register Link */}
+      <p className="text-center text-sm text-gray-600 mt-6">
+        Don't have an account?{" "}
+        <Link
+          to="/register"
+          className="text-[#9c27b0] font-medium hover:underline"
+        >
+          Create Account
+        </Link>
+      </p>
     </div>
+  </div>
+</div>
   );
 };
 

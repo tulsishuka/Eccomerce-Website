@@ -1,59 +1,447 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import Product from "../models/productModel";
 
-dotenv.config();
-
-const products = [
+export const products = [
+  // Women
   {
-    name: "Red Dress",
-    price: 3500,
-    description: "Comfortable gown for women",
+    name: "Floral Maxi Dress",
+    price: 1299,
+    description: "Elegant floral maxi dress for casual outings.",
+    image: "https://images.meesho.com/images/products/595049256/wwieb_512.avif?width=360",
     category: "women",
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
-    stock: 10,
+    subCategory: "western-dresses",
+    stock: 20,
   },
+
   {
-    name: "Adidas Hoodie",
-    price: 2200,
-    description: "Warm winter hoodie",
-    category: "men",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+    name: "Pink Party Dress",
+    price: 1499,
+    description: "Perfect party wear dress.",
+    image: "https://images.meesho.com/images/products/451118679/ln11d_512.avif?width=360",
+    category: "women",
+    subCategory: "western-dresses",
     stock: 15,
   },
+
   {
-    name: "Women's Party Dress",
-    price: 2800,
-    description: "Elegant party dress",
+    name: "Designer Kurti",
+    price: 899,
+    description: "Comfortable cotton kurti.",
+    image: "https://images.meesho.com/images/products/908430321/ngeir_512.avif?width=360",
     category: "women",
-    image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c",
-    stock: 8,
+    subCategory: "kurtis",
+    stock: 25,
   },
+
+  // Men
+  {
+    name: "Slim Fit Shirt",
+    price: 999,
+    description: "Premium cotton slim fit shirt.",
+    image: "https://images.meesho.com/images/products/906190870/n1gzq_512.avif?width=360",
+    category: "men",
+    subCategory: "shirts",
+    stock: 30,
+  },
+
+  {
+    name: "Casual T-Shirt",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/649660053/1zrgn_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+
+  {
+    name: "Blue Denim Jeans",
+    price: 1499,
+    description: "Stretchable denim jeans.",
+    image: "https://images.meesho.com/images/products/590748241/f0lcg_512.avif?width=360",
+    category: "men",
+    subCategory: "jeans",
+    stock: 20,
+  },
+
+  // Footwear
+  {
+    name: "Running Shoes",
+    price: 2499,
+    description: "Lightweight sports shoes.",
+    image: "https://images.meesho.com/images/products/421939376/rixv1_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sports-shoes",
+    stock: 15,
+  },
+
+  {
+    name: "White Sneakers",
+    price: 1899,
+    description: "Stylish everyday sneakers.",
+    image: "https://images.meesho.com/images/products/779899715/k7jhs_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sneakers",
+    stock: 20,
+  },
+
+  {
+    name: "Leather Sandals",
+    price: 799,
+    description: "Comfortable leather sandals.",
+    image: "https://images.meesho.com/images/products/545604800/2chbi_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sandals",
+    stock: 30,
+  },
+
+  // Beauty
+  {
+    name: "Matte Lipstick",
+    price: 399,
+    description: "Long lasting matte lipstick.",
+    image: "https://images.meesho.com/images/products/475330525/4fhpm_512.avif?width=360",
+    category: "beauty",
+    subCategory: "makeup",
+    stock: 50,
+  },
+
+  {
+    name: "Vitamin C Serum",
+    price: 699,
+    description: "Brightening skincare serum.",
+    image: "https://images.meesho.com/images/products/544462643/qabkq_512.avif?width=360",
+    category: "beauty",
+    subCategory: "skincare",
+    stock: 25,
+  },
+
+  {
+    name: "Hair Growth Oil",
+    price: 499,
+    description: "Natural herbal hair oil.",
+    image: "https://images.meesho.com/images/products/72382725/teaol_512.avif?width=360",
+    category: "beauty",
+    subCategory: "haircare",
+    stock: 35,
+  },
+
+  // Accessories
+  {
+    name: "Luxury Watch",
+    price: 2999,
+    description: "Premium wrist watch.",
+    image: "https://images.meesho.com/images/products/224744366/fuitj_512.avif?width=360",
+    category: "accessories",
+    subCategory: "watches",
+    stock: 10,
+  },
+
   {
     name: "Women's Handbag",
-    price: 1900,
-    description: "Stylish handbag",
+    price: 1799,
+    description: "Stylish leather handbag.",
+    image: "https://images.meesho.com/images/products/360369942/afdzm_512.avif?width=360",
+    category: "accessories",
+    subCategory: "bags",
+    stock: 15,
+  },
+
+  {
+    name: "Gold Earrings",
+    price: 899,
+    description: "Elegant earrings.",
+    image: "https://images.meesho.com/images/products/923435998/fbj54_512.avif?width=360",
+    category: "accessories",
+    subCategory: "jewellery",
+    stock: 25,
+  },
+
+  // Home Decor
+  {
+    name: "Wall Painting",
+    price: 1499,
+    description: "Modern wall art.",
+    image: "https://images.meesho.com/images/products/451441460/ovztz_512.avif?width=360",
+    category: "home-decor",
+    subCategory: "wall-art",
+    stock: 10,
+  },
+
+  {
+    name: "Table Lamp",
+    price: 999,
+    description: "Decorative lamp.",
+    image: "https://images.meesho.com/images/products/349890144/eshkc_512.avif?width=360",
+    category: "home-decor",
+    subCategory: "lamps",
+    stock: 20,
+  },
+
+  {
+    name: "Luxury Curtain",
+    price: 1299,
+    description: "Premium home curtain.",
+    image: "https://images.meesho.com/images/products/535116545/e5jfj_512.avif?width=360",
+    category: "home-decor",
+    subCategory: "curtains",
+    stock: 15,
+  },
+
+  {
+    name: "Organic Almonds",
+    price: 499,
+    description: "Healthy almonds pack.",
+    image: "https://images.meesho.com/images/products/807271606/yopkk_512.avif?width=360",
+    category: "grocery",
+    subCategory: "dry-fruits",
+    stock: 50,
+  },
+
+  {
+    name: "Green Tea",
+    price: 299,
+    description: "Natural detox tea.",
+    image: "https://images.meesho.com/images/products/561180630/f8txy_512.avif?width=360",
+    category: "grocery",
+    subCategory: "beverages",
+    stock: 40,
+  },
+
+  {
+    name: "Chocolate Cookies",
+    price: 199,
+    description: "Crunchy chocolate cookies.",
+    image: "https://images.meesho.com/images/products/946122351/4vr5h_512.avif?width=360",
+    category: "grocery",
+    subCategory: "snacks",
+    stock: 60,
+  },
+
+   {
+    name: "Authentic Maxi Dress",
+    price: 299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/346396061/hygo7_512.avif?width=512",
     category: "women",
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3",
-    stock: 12,
+    subCategory: "western-dresses",
+    stock: 20,
+  },
+
+  {
+    name: "attractive kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/521893927/yvi7k_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+
+   {
+    name: "pink kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/539700041/pkzjk_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+  
+{
+    name: "Royal kurti",
+    price: 1299,
+    description: "Cut and Women 2 piece Summer Outfits,",
+    image: "https://images.meesho.com/images/products/538436738/lue8u_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+  {
+    name: "Royal kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/48605566/pzgtw_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+  {
+    name: "Trendy kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/412465309/afkxk_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+   {
+    name: "Blue kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/667513469/r8kbc_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+
+  {
+    name: "white  kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/424059908/03omz_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+    {
+    name: "TOP  kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/651265236/cryrj_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+    {
+    name: "FASHION  kurti",
+    price: 1299,
+    description: "RAYON NECK EMROIDERY 3 PC SUIT FOR WOMAN FASHION",
+    image: "https://images.meesho.com/images/products/788283456/v4pwk_512.avif?width=360",
+    category: "women",
+    subCategory: "Kurtis",
+    stock: 20,
+  },
+
+
+
+
+  {
+    name: "Gym Stringer Vest,",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/293751425/lhqua_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+
+  {
+    name: "Gym Stringer Vest,",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/474812188/1n32a_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+  {
+    name: "FASHION T-shirt,",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/5655551/zaoc3_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+  {
+    name: "Gym Stringer Vest,",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/293751425/lhqua_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+  {
+    name: "Gym Stringer Vest",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/197224966/zzgj2_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+  {
+    name: "Gym Stringer Vest",
+    price: 599,
+    description: "Soft cotton t-shirt.",
+    image: "https://images.meesho.com/images/products/6132710/0j3oy_512.avif?width=360",
+    category: "men",
+    subCategory: "tshirts",
+    stock: 40,
+  },
+
+  {
+    name: "confortable sneakers",
+    price: 1899,
+    description: "Stylish everyday sneakers.",
+    image: "https://images.meesho.com/images/products/410487887/phgyg_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sneakers",
+    stock: 20,
+  },
+   {
+    name: "Gorgeous Sneakers",
+    price: 1899,
+    description: "Stylish everyday sneakers.",
+    image: "https://images.meesho.com/images/products/460379678/v1yf0_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sneakers",
+    stock: 20,
+  },
+
+  {
+    name: "Blue sandals",
+    price: 1899,
+    description: "Stylish everyday sneakers.",
+    image: "https://images.meesho.com/images/products/371498911/c0885_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sneakers",
+    stock: 20,
+  },
+   {
+    name: "Athletic Sneakers",
+    price: 1899,
+    description: "Stylish everyday sneakers.",
+    image: "https://images.meesho.com/images/products/447800186/33277_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sneakers",
+    stock: 20,
+  },
+   {
+    name: " Casual Sneakers",
+    price: 1899,
+    description: "Stylish everyday sneakers.",
+    image: "https://images.meesho.com/images/products/412214149/xxzxa_512.avif?width=360",
+    category: "footwear",
+    subCategory: "sneakers",
+    stock: 20,
+  },
+
+   {
+    name: "Planter Pot",
+    price: 999,
+    description: "Planter pot for indoor plants.",
+    image: "https://images.meesho.com/images/products/422350811/91eyq_512.avif?width=360",
+    category: "home-decor",
+    subCategory: "lamps",
+    stock: 20,
+  },
+  {
+    name: "Badsheet",
+    price: 999,
+    description: "Bed sheet for home.",
+    image: "https://images.meesho.com/images/products/526025994/2pra8_512.avif?width=360",
+    category: "home-decor",
+    subCategory: "lamps",
+    stock: 20,
+  },
+   {
+    name: "Fake Plant",
+    price: 999,
+    description: "Artificial plant for home decor.",
+    image: "https://images.meesho.com/images/products/497332662/wksrk_512.avif?width=360",
+    category: "home-decor",
+    subCategory: "lamps",
+    stock: 20,
   },
 ];
-
-const seedProducts = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI as string);
-
-    await Product.deleteMany();
-
-    await Product.insertMany(products);
-
-    console.log("Products seeded successfully ✅");
-
-    process.exit(0);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-};
-
-seedProducts();

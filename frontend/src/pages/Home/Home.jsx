@@ -5,6 +5,7 @@ import ShopUniverseSection from "../../components/ShopUniverseSection/ShopUniver
 import TestimonialsSection from "../../components/TestimonialsSection/TestimonialsSection";
 import WinterArchiveSection from "../../components/WinterArchiveSection/WinterArchiveSection";
 import PromotionBanner from "../../components/PromotionBanner";
+import CategoryCard from "../../components/CategoryCard/CategoryCard";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <WinterArchiveSection/>
       <TestimonialsSection />
       <PromotionBanner/>
+      <CategoryCard/>
     </>
   );
 };

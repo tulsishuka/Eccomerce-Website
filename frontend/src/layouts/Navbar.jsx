@@ -57,7 +57,7 @@ const Navbar = () => {
 
   {/* Wishlist */}
   <Link
-    to="/wishlist"
+    to="/MyWishlist"
     className="flex flex-col items-center justify-center text-gray-700 hover:text-[#580B4E] transition group"
   >
     <Heart className="h-5 w-5 group-hover:text-[#580B4E]" />
@@ -70,12 +70,12 @@ const Navbar = () => {
 
   {/* Orders */}
   <Link
-    to="/orders"
+    to="/CategoryCard"
     className="flex flex-col items-center justify-center text-gray-700 hover:text-[#580B4E] transition group"
   >
     <Package className="h-5 w-5 group-hover:text-[#580B4E]" />
     <span className="hidden md:block text-xs font-medium mt-1">
-      Orders
+      CategoryCard
     </span>
   </Link>
 

@@ -4,8 +4,8 @@ import React from 'react';
 const ShopUniverseSection = () => {
   return (
     <div className="w-full bg-[#FAEDF8] py-6 px-4 flex justify-center items-center">
-      <div className="w-full max-w-7xl bg-white border border-[#E9CBE5] rounded-xl py-4 px-6 md:px-12 flex flex-col sm:flex-row justify-end items-center gap-6 md:gap-10 shadow-sm">
-        
+      {/* <div className="w-full max-w-7xl bg-white border border-[#E9CBE5] rounded-xl py-4 px-6 md:px-12 flex flex-col sm:flex-row justify-end items-center gap-6 md:gap-10 shadow-sm"> */}
+        <div className="w-full max-w-7xl bg-white border border-[#E9CBE5] rounded-xl py-4 px-6 md:px-12 flex flex-col sm:flex-row justify-center items-center gap-6 md:gap-10 shadow-sm">
         {/* Item 1: Easy Return */}
         <div className="flex items-center gap-2">
           <svg className="w-5 h-5 text-[#9A2175]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

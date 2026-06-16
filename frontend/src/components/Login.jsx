@@ -54,7 +54,7 @@ const Login = () => {
       "user",
       JSON.stringify(res.data.user)
     );
-
+console.log(JSON.parse(localStorage.getItem("user")));
     toast.success("Login Successful");
 
     navigate("/");

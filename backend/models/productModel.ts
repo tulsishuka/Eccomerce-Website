@@ -1,4 +1,63 @@
 
+// import mongoose from "mongoose";
+
+// const { Schema } = mongoose;
+
+// const productSchema = new Schema(
+//   {
+//     name: {
+//       type: String,
+//       required: [true, "Product name must be provided"],
+    
+//     },
+
+//     price: {
+//       type: Number,
+//       required: [true, "Product price must be provided"],
+//     },
+
+//     description: {
+//       type: String,
+//       required: [true, "Product description must be provided"],
+//     },
+
+//     image: {
+//       type: String,
+//       default: null,
+//     },
+// subCategory: {
+//   type: String,
+//   required: false,
+// },
+   
+//     category: {
+//   type: String,
+//   required: true,
+// enum: [
+//     "men",
+//     "women",
+//     "western-dresses",
+//     "menswear",
+//     "footwear",
+//     "home-decor",
+//     "beauty",
+//     "accessories",
+//     "grocery",
+//   ],
+// },
+
+//     stock: {
+//       type: Number,
+//       default: 0,
+//     },
+//   },
+//   { timestamps: true }
+// );
+
+// const Product = mongoose.model("Product", productSchema);
+
+// export default Product;
+
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
@@ -8,7 +67,7 @@ const productSchema = new Schema(
     name: {
       type: String,
       required: [true, "Product name must be provided"],
-      unique: [true, "Product name already exists, please use another one"],
+      trim: true,
     },
 
     price: {
@@ -19,28 +78,35 @@ const productSchema = new Schema(
     description: {
       type: String,
       required: [true, "Product description must be provided"],
+      trim: true,
     },
 
     image: {
       type: String,
-      default: null,
+      default: "",
     },
 
-   
     category: {
-  type: String,
-  required: true,
-  enum: [
-    "men",
-    "women",
-    "shoes",
-    "clothing",
-    "accessories",
-    "BeautyProducts",
-    "Electronics",
-    "HomeDecor",
-  ],
-},
+      type: String,
+      required: true,
+      enum: [
+        "men",
+        "women",
+        "western-dresses",
+        "menswear",
+        "footwear",
+        "home-decor",
+        "beauty",
+        "accessories",
+        "grocery",
+      ],
+    },
+
+    subCategory: {
+      type: String,
+      required: false,
+      trim: true,
+    },
 
     stock: {
       type: Number,

@@ -6,6 +6,7 @@ import orderRouter from "./routes/orderRouter";
 import cartRouter from "./routes/cart.routes";
 import cors from "cors";
 import path from "path";
+import wishlistRoutes from "./routes/wishlistRoutes";
 
 
 const app = express();
@@ -19,5 +20,9 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/product", productRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/cart", cartRouter);
+app.use(
+  "/api/v1/wishlist",
+  wishlistRoutes
+);
 
 export default app;

@@ -31,10 +31,10 @@ const categories = [
     name: "Beauty",
     image: "/beauty.webp",
   },
-  {
+   {
     id: 7,
     name: "Accessories",
-    image: "/bag.webp",
+    image: "/bagi.webp",
   },
   {
     id: 8,

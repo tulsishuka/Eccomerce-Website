@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Search, ShoppingCart, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import ProfileDropdown from "./ProfileDropdown";
+import axios from "axios";
+import { useEffect } from "react";
 import {
-
   Heart,
   Package,
 } from "lucide-react";
@@ -12,12 +13,66 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [showProfile, setShowProfile] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (!search.trim()) return;
     navigate(`/CategoryCard?name=${search}`);
   };
+
+const fetchCartCount = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setCartCount(0);
+      return;
+    }
+
+    const res = await axios.get(
+      "http://localhost:3000/api/v1/cart",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const count =
+      res.data.cart?.items?.reduce(
+        (total, item) => total + item.quantity,
+        0
+      ) || 0;
+
+    setCartCount(count);
+  } catch (error) {
+    console.log(error);
+    setCartCount(0);
+  }
+};
+
+
+useEffect(() => {
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  fetchCartCount();
+
+  const handleCartUpdate = () => {
+    fetchCartCount();
+  };
+
+  window.addEventListener(
+    "cartUpdated",
+    handleCartUpdate
+  );
+
+  return () => {
+    window.removeEventListener(
+      "cartUpdated",
+      handleCartUpdate
+    );
+  };
+}, []);
 
   return (
 
@@ -99,21 +154,23 @@ const Navbar = () => {
 
   <div className="hidden md:block h-6 w-px bg-gray-200" />
 
-  {/* Cart */}
-  <Link
-    to="/ShopingCart"
-    className="relative flex flex-col items-center justify-center text-gray-700 hover:text-[#580B4E] transition group"
-  >
-    <ShoppingCart className="h-5 w-5 group-hover:text-[#580B4E]" />
 
+<Link
+  to="/cart"
+  className="relative flex flex-col items-center justify-center text-gray-700 hover:text-[#580B4E] transition group"
+>
+  <ShoppingCart className="h-5 w-5 group-hover:text-[#580B4E]" />
+
+  {cartCount > 0 && (
     <span className="absolute -top-1 -right-2 bg-[#580B4E] text-white text-[10px] min-w-[16px] h-4 px-1 rounded-full flex items-center justify-center">
-      0
+      {cartCount}
     </span>
+  )}
 
-    <span className="hidden md:block text-xs font-medium mt-1">
-      Cart
-    </span>
-  </Link>
+  <span className="hidden md:block text-xs font-medium mt-1">
+    Cart
+  </span>
+</Link>
 
 </div>
         </div>

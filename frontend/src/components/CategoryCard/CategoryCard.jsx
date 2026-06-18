@@ -4,6 +4,7 @@ import axios from "axios";
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import { Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CategoryCard = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +15,7 @@ const CategoryCard = () => {
 
   const search = searchParams.get("name") || "";
   const category = searchParams.get("category") || "";
-
+const navigate = useNavigate();
 
 const toggleWishlist = async (productId) => {
   const user = JSON.parse(
@@ -267,9 +268,12 @@ useEffect(() => {
           ₹{product.price}
         </p>
 
-        <button className="mt-1 w-full py-1 text-[10px] rounded border border-black hover:bg-black hover:text-white transition">
-          View
-        </button>
+        <button
+  onClick={() => navigate(`/product/${product._id}`)}
+  className="mt-1 w-full py-1 text-[10px] rounded border border-black hover:bg-black hover:text-white transition"
+>
+  View
+</button>
       </div>
 
     </div>

@@ -22,12 +22,12 @@ const PromotionBanner = () => {
 
   return (
     <div className="w-full font-sans selection:bg-purple-200">
-      {/* ================= DESKTOP VERSION (UNCHANGED) ================= */}
+
       <div
         className="hidden md:block relative w-full aspect-[1200/320] bg-cover bg-center overflow-hidden"
         style={{ backgroundImage: `url('/offer.webp')` }}
       >
-        {/* Download Button */}
+
         <div className="absolute inset-y-0 left-0 w-[30%] flex items-end justify-center pb-[5%]">
           <button className="w-[65%] h-[20%] rounded-md bg-white hover:bg-gray-100 font-bold text-[#580a46] text-sm lg:text-xl xl:text-2xl transition-all duration-300 shadow-md cursor-pointer">
             Download Now
@@ -55,12 +55,10 @@ const PromotionBanner = () => {
         </div>
       </div>
 
-      {/* ================= PREMIUM MOBILE VERSION ================= */}
       <div className="md:hidden w-full bg-[#FFFBFD] pb-6 flex flex-col gap-5">
-        
-        {/* Top Hero Card - Splits the yellow coupon out with high contrast */}
+
         <div className="mx-4 mt-4 bg-[#580a46] rounded-3xl p-5 shadow-[0_8px_30px_rgb(255,170,14,0.2)] relative overflow-hidden flex flex-col gap-4">
-          {/* Subtle abstract backdrop circle */}
+  
           <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-xl" />
           
           <div className="flex flex-col gap-1 z-10">
@@ -116,7 +114,6 @@ const PromotionBanner = () => {
         </div>
       </div>
 
-      {/* Styled inline helper to strip mobile scrollbars cleanly */}
       <style dangerouslySetInnerHTML={{__html: `
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

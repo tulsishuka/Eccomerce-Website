@@ -1,4 +1,6 @@
+
 import React from "react";
+import { Link } from "react-router-dom";
 
 const categories = [
   {
@@ -31,7 +33,7 @@ const categories = [
     name: "Beauty",
     image: "/beauty.webp",
   },
-   {
+  {
     id: 7,
     name: "Accessories",
     image: "/bagi.webp",
@@ -49,24 +51,24 @@ const CategoryNav = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-start md:justify-center gap-4 md:gap-6 lg:gap-8 overflow-x-auto scrollbar-none pb-2">
           {categories.map((category) => (
-            <div
-              key={category.id}
-              className="flex-shrink-0 w-[90px] sm:w-[110px] md:w-[120px] lg:w-[130px] flex flex-col items-center group cursor-pointer"
+            <Link
+          
+              to="/CategoryCard"
             >
-              {/* Image */}
-              <div className="w-full aspect-square overflow-hidden rounded-lg shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
-                <img
-                  src={category.image}
-                  alt={category.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <div className="flex-shrink-0 w-[90px] sm:w-[110px] md:w-[120px] lg:w-[130px] flex flex-col items-center group cursor-pointer">
+                <div className="w-full aspect-square overflow-hidden rounded-lg shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-md">
+                  <img
+                    src={category.image}
+                    alt={category.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-              {/* Category Name */}
-              <span className="mt-2 text-xs sm:text-sm font-medium text-center text-gray-700 transition-colors duration-300 group-hover:text-purple-700">
-                {category.name}
-              </span>
-            </div>
+                <span className="mt-2 text-xs sm:text-sm font-medium text-center text-gray-700 transition-colors duration-300 group-hover:text-purple-700">
+                  {category.name}
+                </span>
+              </div>
+            </Link>
           ))}
         </div>
       </div>

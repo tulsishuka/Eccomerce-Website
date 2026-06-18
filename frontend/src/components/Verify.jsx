@@ -13,35 +13,6 @@ const Verify = () => {
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // const handleVerify = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!otp) {
-  //     toast.error("Please enter OTP");
-  //     return;
-  //   }
-  //   try {
-  //     setLoading(true);
-
-  //     const res = await axios.post(
-  //       "http://localhost:3000/api/v1/auth/verify-otp",
-  //       { email, otp }
-  //     );
-
-  //     toast.success(res.data.message || "Verified successfully ❤️");
-
-  //     setTimeout(() => {
-  //       navigate("/Home");
-  //     }, 1000);
-
-  //   } catch (error) {
-  //     toast.error(error.response?.data?.message || "Invalid OTP");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-
 const handleVerify = async (e) => {
   e.preventDefault();
 
@@ -77,21 +48,9 @@ const handleVerify = async (e) => {
     toast.success(
       res.data.message || "Verified successfully ❤️"
     );
-
     navigate("/");
   }
-  
-  // catch (error) {
-  //   console.log(
-  //     "VERIFY ERROR:",
-  //     error.response?.data
-  //   );
 
-  //   toast.error(
-  //     error.response?.data?.message ||
-  //       "Verification failed"
-  //   );
-  // }
   catch (error) {
   console.log("VERIFY ERROR:", error.response?.data);
 
@@ -106,10 +65,8 @@ const handleVerify = async (e) => {
 };
   return (
   
-    <div className="flex min-h-screen items-center justify-center bg-[#FDF4E3] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#FAEDF8] p-4">
   <div className="w-full max-w-[480px] overflow-hidden rounded-[28px] bg-white shadow-lg">
-
-    {/* Banner */}
     <div className="w-full">
       <img
         src="/register.webp"
@@ -118,7 +75,6 @@ const handleVerify = async (e) => {
       />
     </div>
 
-    {/* Form */}
     <div className="p-6 sm:p-8">
       <h2 className="text-2xl font-bold text-[#2d3748] mb-2">
         Verify Your Account
@@ -134,7 +90,6 @@ const handleVerify = async (e) => {
 
       <form onSubmit={handleVerify} className="space-y-5">
 
-        {/* OTP */}
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">
             OTP Code
@@ -149,8 +104,6 @@ const handleVerify = async (e) => {
             className="w-full border border-gray-300 rounded-lg px-4 py-3 text-center tracking-[0.4em] text-lg focus:outline-none focus:border-[#9c27b0] transition"
           />
         </div>
-
-        {/* Verify Button */}
         <button
           type="submit"
           disabled={loading}
@@ -159,7 +112,6 @@ const handleVerify = async (e) => {
           {loading ? "Verifying..." : "Verify OTP"}
         </button>
 
-        {/* Helper Text */}
         <p className="text-center text-sm text-gray-500">
           Didn't receive the OTP?
           <span className="text-[#9c27b0] font-medium ml-1 cursor-pointer hover:underline">

@@ -44,6 +44,8 @@ export const getWishlist = async (
   });
 };
 
+
+
 export const removeWishlist = async (
   req: Request,
   res: Response

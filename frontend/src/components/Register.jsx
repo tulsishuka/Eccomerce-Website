@@ -77,7 +77,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#FDF4E3] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#FAEDF8] p-4">
       <div className="w-full max-w-[480px] overflow-hidden rounded-[28px] bg-white shadow-lg">
         
         {/* Banner */}
@@ -113,7 +113,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-600 mb-2">
                 Email Address
@@ -145,7 +144,6 @@ const Register = () => {
               />
             </div>
 
-            {/* Button */}
             <button
               type="submit"
               disabled={loading}

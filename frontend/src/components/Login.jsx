@@ -71,7 +71,7 @@ console.log(JSON.parse(localStorage.getItem("user")));
 
   return (
 
-    <div className="flex min-h-screen items-center justify-center bg-[#FDF4E3] p-4">
+    <div className="flex min-h-screen items-center justify-center bg-[#FAEDF8] p-4">
   <div className="w-full max-w-[480px] overflow-hidden rounded-[28px] bg-white shadow-lg">
 
     {/* Banner */}

@@ -130,7 +130,7 @@ useEffect(() => {
   >
     <Package className="h-5 w-5 group-hover:text-[#580B4E]" />
     <span className="hidden md:block text-xs font-medium mt-1">
-      CategoryCard
+      Products
     </span>
   </Link>
 

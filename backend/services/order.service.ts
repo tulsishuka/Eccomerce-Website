@@ -1,54 +1,86 @@
+
+
 import Product from "../models/productModel";
 import Order from "../models/orderModel";
 
-export const createOrderService = async (data: any, userId: string) => {
-  const { email, firstName, lastName, phone, cartItem } = data;
+export const createOrderService = async (
+  data: any,
+  userId: string
+) => {
+  const {
+    email,
+    firstName,
+    lastName,
+    phone,
+    itemDetail,
+  } = data;
 
-  let orderItem: any[] = [];
+  if (!itemDetail || itemDetail.length === 0) {
+    throw new Error("No products found in order");
+  }
+
+  let orderItems: any[] = [];
   let total = 0;
 
-  for (const cart of cartItem) {
-    const productData = await Product.findOne({ _id: cart.product });
+  for (const item of itemDetail) {
+    const productData = await Product.findById(
+      item.product
+    );
 
     if (!productData) {
-      throw new Error("Product ID not found!");
+      throw new Error(
+        `Product not found: ${item.product}`
+      );
     }
 
-    const { name, price, _id } = productData as any;
+    orderItems.push({
+      quantity: item.quantity,
+      name: productData.name,
+      price: productData.price,
+      product: productData._id,
+    });
 
-    const singleProduct = {
-      quantity: cart.quantity,
-      name,
-      price,
-      product: _id,
-    };
-
-    orderItem = [...orderItem, singleProduct];
-
-    total += cart.quantity * price;
+    total +=
+      Number(productData.price) *
+      Number(item.quantity);
   }
 
   const order = await Order.create({
-    itemDetail: orderItem,
+    itemDetail: orderItems,
     total,
     firstName,
     lastName,
     email,
     phone,
     user: userId,
+    status: "success",
   });
 
-  return { order, total };
+  return {
+    order,
+    total,
+  };
 };
 
 export const getAllOrdersService = async () => {
-  return Order.find();
+  return await Order.find()
+    .populate("user")
+    .sort({ createdAt: -1 });
 };
 
-export const getOrderDetailService = async (id: string) => {
-  return Order.findById(id);
+export const getOrderDetailService = async (
+  id: string
+) => {
+  return await Order.findById(id)
+    .populate("user")
+    .populate("itemDetail.product");
 };
 
-export const getCurrentUserOrdersService = async (userId: string) => {
-  return Order.find({ user: userId });
-};
+export const getCurrentUserOrdersService =
+  async (userId: string) => {
+    return await Order.find({
+      user: userId,
+    })
+      .populate("itemDetail.product")
+      .sort({ createdAt: -1 });
+  };

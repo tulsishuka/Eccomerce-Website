@@ -11,42 +11,6 @@ const ProductDetail = () => {
   const navigate = useNavigate();
 const [cartLoading, setCartLoading] = useState(false);
 
-
-
-// const addToCart = async () => {
-//   try {
-//     const token = localStorage.getItem("token");
-
-//     if (!token) {
-//       toast.error("Please login first");
-//       return;
-//     }
-
-//     setCartLoading(true);
-
-//     await axios.post(
-//       "http://localhost:3000/api/v1/cart",
-//       {
-//         productId: product._id,
-//         quantity: 1,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       }
-//     );
-
-//     toast.success("Added to cart");
-//   } catch (error) {
-//     console.log(error);
-//     toast.error("Failed to add cart");
-//   } finally {
-//     setCartLoading(false);
-//   }
-// };
-
-
 const addToCart = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -123,8 +87,6 @@ const addToCart = async () => {
   
     
   <div className="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-12">
-
-    {/* IMAGE */}
     <div className="bg-white rounded-2xl shadow p-6">
       <img
         src={product.image}
@@ -133,7 +95,6 @@ const addToCart = async () => {
       />
     </div>
 
-    {/* DETAILS */}
     <div className="flex flex-col justify-center">
 
       <p className="text-sm text-gray-400 uppercase">

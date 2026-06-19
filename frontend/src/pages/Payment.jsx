@@ -9,7 +9,7 @@ const Payment = () => {
   };
 
   return (
- <div className="min-h-screen bg-gray-50 py-12 px-4 bg-[#FAEDF8]">
+ <div className="min-h-screen  py-12 px-4 bg-[#FFECF5]">
   <div className="max-w-2xl mx-auto">
 
     {/* Heading */}
@@ -70,7 +70,7 @@ const Payment = () => {
         {/* Continue Button */}
         <button
           onClick={handleCOD}
-          className="w-full mt-6 bg-black hover:bg-gray-800 text-white font-semibold py-4 rounded-xl transition-all duration-300"
+          className="w-full mt-6 bg-[#722F6A] hover:bg-[#722F6A] text-white font-semibold py-4 rounded-xl transition-all duration-300"
         >
           Continue to Place Order
         </button>

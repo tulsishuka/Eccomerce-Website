@@ -13,7 +13,7 @@ const Cart = () => {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:3000/api/v1/cart",
+        "https://eccomerce-website-bali.onrender.com/api/v1/cart",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ const Cart = () => {
       const token = localStorage.getItem("token");
 
       await axios.delete(
-        `http://localhost:3000/api/v1/cart/${productId}`,
+        `https://eccomerce-website-bali.onrender.com/api/v1/cart/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const Cart = () => {
       if (quantity < 1) return;
 
       await axios.put(
-        "http://localhost:3000/api/v1/cart/quantity",
+        "https://eccomerce-website-bali.onrender.com/api/v1/cart/quantity",
         {
           productId,
           quantity,

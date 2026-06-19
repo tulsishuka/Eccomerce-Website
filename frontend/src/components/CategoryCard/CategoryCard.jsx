@@ -31,7 +31,7 @@ const toggleWishlist = async (productId) => {
     // Remove from wishlist
     if (wishlistItems.includes(productId)) {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/wishlist/${user._id}`
+        `https://eccomerce-website-bali.onrender.com/api/v1/wishlist/${user._id}`
       );
 
       const item = res.data.data.find(
@@ -40,7 +40,7 @@ const toggleWishlist = async (productId) => {
 
       if (item) {
         await axios.delete(
-          `http://localhost:3000/api/v1/wishlist/${item._id}`
+          `https://eccomerce-website-bali.onrender.com/api/v1/wishlist/${item._id}`
         );
 
         setWishlistItems((prev) =>
@@ -53,7 +53,7 @@ const toggleWishlist = async (productId) => {
 
     // Add to wishlist
     await axios.post(
-      "http://localhost:3000/api/v1/wishlist/add",
+      "https://eccomerce-website-bali.onrender.com/api/v1/wishlist/add",
       {
         userId: user._id,
         productId,
@@ -79,7 +79,7 @@ const fetchWishlist = async () => {
     if (!user?._id) return;
 
     const res = await axios.get(
-      `http://localhost:3000/api/v1/wishlist/${user._id}`
+      `https://eccomerce-website-bali.onrender.com/api/v1/wishlist/${user._id}`
     );
 
     const ids = res.data.data.map(
@@ -108,7 +108,7 @@ useEffect(() => {
         params.append("category", category);
       }
 
-      const url = `http://localhost:3000/api/v1/product?${params.toString()}`;
+      const url = `https://eccomerce-website-bali.onrender.com/api/v1/product?${params.toString()}`;
 
       const res = await axios.get(url);
 

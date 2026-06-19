@@ -43,7 +43,7 @@ const Register = () => {
       setLoading(true);
 
       await axios.post(
-        "http://localhost:3000/api/v1/auth/register",
+        "https://eccomerce-website-bali.onrender.com/api/v1/auth/register",
         {
           name: formData.name,
           email: formData.email,

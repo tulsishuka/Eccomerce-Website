@@ -26,11 +26,11 @@ const Login = () => {
 
   try {
     const res = await axios.post(
-      "http://localhost:3000/api/v1/auth/login",
+      "https://eccomerce-website-bali.onrender.com/api/v1/auth/login",
       formData
     );
 
-    // Not verified
+
     if (res.data.requiresVerification) {
       toast.error(
         "Please verify your email. New OTP sent."

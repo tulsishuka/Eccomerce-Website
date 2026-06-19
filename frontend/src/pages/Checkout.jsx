@@ -48,7 +48,7 @@ const Checkout = () => {
         localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:3000/api/v1/address",
+        "https://eccomerce-website-bali.onrender.com/api/v1/address",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ const Checkout = () => {
 
       if (address) {
         await axios.put(
-          "http://localhost:3000/api/v1/address",
+          "https://eccomerce-website-bali.onrender.com/api/v1/address",
           formData,
           {
             headers: {
@@ -117,7 +117,7 @@ const Checkout = () => {
         );
       } else {
         await axios.post(
-          "http://localhost:3000/api/v1/address",
+          "https://eccomerce-website-bali.onrender.com/api/v1/address",
           formData,
           {
             headers: {

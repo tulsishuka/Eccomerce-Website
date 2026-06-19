@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const OrderSuccess = () => {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-[#FFECF5]">
 
       <h1 className="text-4xl font-bold text-green-600">
         Order Placed Successfully 🎉
@@ -15,7 +15,7 @@ const OrderSuccess = () => {
 
       <Link
         to="/"
-        className="mt-6 bg-black text-white px-8 py-3 rounded-lg"
+        className="mt-6 bg-[#722F6A] text-white px-8 py-3 rounded-lg"
       >
        Go To Home
       </Link>

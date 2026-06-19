@@ -15,7 +15,7 @@ const MyWishlist = () => {
       }
 
       const res = await axios.get(
-        `http://localhost:3000/api/v1/wishlist/${user._id}`
+        `https://eccomerce-website-bali.onrender.com/api/v1/wishlist/${user._id}`
       );
 
       setWishlistItems(res.data.data || []);
@@ -29,7 +29,7 @@ const MyWishlist = () => {
   const removeWishlist = async (wishlistId) => {
     try {
       await axios.delete(
-        `http://localhost:3000/api/v1/wishlist/${wishlistId}`
+        `https://eccomerce-website-bali.onrender.com/api/v1/wishlist/${wishlistId}`
       );
 
       setWishlistItems((prev) =>

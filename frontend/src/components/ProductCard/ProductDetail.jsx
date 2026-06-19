@@ -23,7 +23,7 @@ const addToCart = async () => {
     setCartLoading(true);
 
     await axios.post(
-      "http://localhost:3000/api/v1/cart",
+      "https://eccomerce-website-bali.onrender.com/api/v1/cart",
       {
         productId: product._id,
         quantity: 1,
@@ -54,7 +54,7 @@ const addToCart = async () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/v1/product/${id}`
+          `https://eccomerce-website-bali.onrender.com/api/v1/product/${id}`
         );
         setProduct(res.data.data);
       } catch (error) {

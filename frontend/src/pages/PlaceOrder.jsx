@@ -87,7 +87,7 @@ const PlaceOrder = () => {
 
       const response =
         await axios.post(
-          "http://localhost:3000/api/v1/order",
+          "https://eccomerce-website-bali.onrender.com/api/v1/order",
           data,
           {
             headers: {
